@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSONPlaceholder Users</title>
+  </head>
+  <body>
+    <h1>Random User</h1>
+    <button onclick="refreshData()">Check User</button>
+
+    <script>
+      function refreshData() {
+        // Create a new XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+
+        // Configure it: GET-request for the URL
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/users", true);
+
+        // Set up a function to handle the response
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            // Request is complete
+            if (xhr.status === 200) {
+              // Request was successful
+              // Parse JSON response
+              var users = JSON.parse(xhr.responseText);
+
+              // Pick a random user
+              var usr = users[Math.floor(Math.random() * users.length)];
+
+              // Display the random user
+              document.body.insertAdjacentHTML(
+                "beforeend",
+                `<p>Name: ${usr.name} <br> Email: ${usr.email}</p>`
+              );
+            } else {
+              console.error("Error fetching data:", xhr.status);
+            }
+          }
+        };
+
+        // Send the request
+        xhr.send();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSONPlaceholder Users</title>
+  </head>
+  <body>
+    <h1>Random User</h1>
+    <button onclick="refreshData()">FetchUser</button>
+
+    <script>
+      function refreshData() {
+        fetch("https://jsonplaceholder.typicode.com/users")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok " + response.status);
+            }
+            return response.json();
+          })
+          .then((users) => {
+            // Pick a random user
+            const usr = users[Math.floor(Math.random() * users.length)];
+
+            // Display the random user
+            const userInfo = document.getElementById("user-info");
+            if (userInfo) {
+              userInfo.remove(); // Remove previous user info
+            }
+
+            const p = document.createElement("p");
+            p.id = "user-info";
+            p.innerHTML = `Name: ${usr.name} <br> Email: ${usr.email}`;
+            document.body.appendChild(p);
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      }
+    </script>
+  </body>
+</html>
