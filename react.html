@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple HTML using React</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="./react-lib/react.development.js"></script>
+    <script src="./react-lib/react-dom.development.js"></script>
+    <script>
+      // Generate a random number between 1 and 100
+      const randomNumber = Math.floor(Math.random() * 100) + 1;
+      // Create a new element to display the random number
+      const numberElement = React.createElement(
+        "h1",
+        null,
+        `Generated Number: ${randomNumber}`
+      );
+
+      const resultElement = React.createElement(
+        "h2",
+        { style: { color: "blue" } },
+        randomNumber % 2 === 0 ? "The number is even!" : "The number is odd!"
+      );
+
+      const lists = ["it1", " This is the text 2", " Text 3 in the array"];
+
+      const newElement = React.createElement(
+        "ul",
+        { style: { color: "red" } },
+        lists.map((itm, i) => React.createElement("li", { key: i }, itm))
+      );
+
+      const freshEle = React.createElement(
+        "p",
+        { style: { color: "indigo" } },
+        randomNumber % 10 === 3
+          ? randomNumber % 3 === 0
+            ? "Number ends with 3 and also multiples of 3"
+            : "Number end with 3 but not multiple of  3"
+          : " Number not end with 3"
+      );
+
+      const img = React.createElement("img", {
+        src: "../pexels-olly-3769138.jpg",
+        style: { width: "500px", height: "400px" },
+      });
+
+      const fact = 17;
+
+      // Create an array to hold elements
+      const elements = [];
+
+      for (let i = 1; i < 11; i++) {
+        elements.push(
+          React.createElement(
+            "p",
+            {
+              key: i, // always give key in loops
+              style: { fontSize: "2rem", color: "purple", fontStyle: "italic" },
+            },
+            `${fact} x ${i} = ${fact * i}`
+          )
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      //   root.render([numberElement, resultElement]);
+      root.render(
+        React.createElement("div", { id: "childDiv" }, [
+          numberElement,
+          resultElement,
+          newElement,
+          freshEle,
+          img,
+          elements,
+        ])
+      );
+    </script>
+  </body>
+</html>
